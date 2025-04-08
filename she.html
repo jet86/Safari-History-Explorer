@@ -42,7 +42,7 @@
         <div id="rotateButton" class="balance">
           <button id="viewJSONButton" class="ui primary button" onclick="viewJSON()" style="width: 200px" disabled>View JSON</button>
           <button id="viewCSVButton" class="ui primary button" onclick="viewCSV()" style="width: 200px" disabled>View CSV</button>
-          <button id="downloadJSONButton" class="ui primary button" onclick="downloadCSV()" style="width: 200px" disabled>Download CSV</button>
+          <a download="safari_history_export.csv" id="downloadCSVLink"><button id="downloadCSVButton" class="ui primary button" style="width: 200px" disabled>Download CSV</button></a>
           <button id="downloadPDFButton" class="ui primary button" onclick="downloadPDF()" style="width: 200px" disabled>Download PDF</button>
           <input type="file" id="file-input" />
         </div>
@@ -56,7 +56,7 @@
     </div>
     <div id="AboutArea" class="address-area ui segment" style="display:Block; width: 100%;">
       <h3>About</h3>
-      v 0.8.0<br>
+      v 0.9.0<br>
       <br>
       This single page tool allows you to convert Safari history JSON files exported from Safari on an iPad to a more human readable table or CSV format.<br>
       <br>
@@ -64,9 +64,9 @@
       <br>
       See <a href="https://developer.apple.com/documentation/safariservices/importing-data-exported-from-safari#Understand-JSON-metadata" target="_blank">https://developer.apple.com/documentation/safariservices/importing-data-exported-from-safari#Understand-JSON-metadata</a> for details of the JSON file structure.<br>
       <br>
-      Future versions will hopefully include the ability to save a CSV export or a PDF report of the converted data.<br>
+      Future versions will include the ability to save a PDF report of the converted data.<br>
       <br>
-      This page is entirely self contained. You can run it locally (even without an internet connection) by saving the html file via File > Save As > Format: Page Source (in Safari) or File > Save Page As > Format: Web Page, HTML Only (in Chrome), or by downloading the latest version from <a href="https://github.com/jet86/Safari-History-Explorer" target="_blank">https://github.com/jet86/Safari-History-Explorer</a><br>
+      This page is entirely self contained. You can run it locally (even without an internet connection) by saving the html file via File > Save As > Format: Page Source (in Safari) or File > Save Page As > Format: Web Page, HTML Only (in Chrome), or by downloading the latest version from <a href="https://github.com/jet86/Safari-History-Explorer" target="_blank">https://github.com/jet86/Safari-History-Explorer</a>. Note that when running it locally with no internet connection, some UI elements may look slightly different and the ability to download a PDF report may not work.<br>
       <br>
       &copy; 2025 jet86 | MIT License
     </div>
@@ -103,6 +103,8 @@
 		var csvTable = "";
 		csvTable += "<table border='1' class='balance' style='table-layout: fixed; width: 100%'><tr><th>Time</th><th>URL</th><th>Title</th><th width='5%'>Visits</th><th>Destination</th><th>Destination Time</th><th>Source</th><th>Source Time</th><th width='5%'>Last Visit Failed</th><th width='5%'>Last Visit HTTP GET</th></tr>";
 		
+		let newCSVArray = [["Time (Raw)", "Time (UTC)", "Time (Local)", "URL", "Title", "Visits", "Destination", "Destination Time (Raw)", "Destination Time (UTC)", "Destination Time (Local)", "Source", "Source Time (Raw)", "Source Time (UTC)", "Source Time (Local)", "Last Visit Failed", "Last Visit HTTP GET"]];
+		
 		for(const historyEntry of historyArray)
 		{
 			var globalTime = new Date(historyEntry.time_usec / 1000).toUTCString();
@@ -116,12 +118,28 @@
 			csvTable += "<tr><td>" + historyEntry.time_usec + "<br><br>" + globalTime + "<br><br>" + localTime + "</td>";
 			csvTable += "<td style='word-wrap: break-word'>" + formatURL(historyEntry.url) + "</td><td>" + (historyEntry.title || "") + "</td><td>" + historyEntry.visit_count + "</td>";
 			csvTable += "<td style='word-wrap: break-word'>" + formatURL(historyEntry.destination_url) + "</td><td>" + (historyEntry.destination_time_usec || "") + "<br><br>" + globalDestTime + "<br><br>" + localDestTime + "</td><td style='word-wrap: break-word'>" + formatURL(historyEntry.source_url) + "</td><td>" + (historyEntry.source_time_usec || "") + "<br><br>" + globalSrcTime + "<br><br>" + localSrcTime + "</td>";
-			csvTable += "<td>" + (historyEntry.latest_visit_was_load_failure === undefined ? " " : historyEntry.latest_visit_was_load_failure) + "</td><td>" + (historyEntry.latest_visit_was_http_get === undefined ? " " : historyEntry.latest_visit_was_http_get) + "</td></tr>";
+			csvTable += "<td>" + (historyEntry.latest_visit_was_load_failure === undefined ? "" : historyEntry.latest_visit_was_load_failure) + "</td><td>" + (historyEntry.latest_visit_was_http_get === undefined ? "" : historyEntry.latest_visit_was_http_get) + "</td></tr>";
 			
+			newCSVArray.push([historyEntry.time_usec, globalTime, localTime, historyEntry.url, (historyEntry.title || ""), historyEntry.visit_count, (historyEntry.destination_url || ""), (historyEntry.destination_time_usec || ""), globalDestTime, localDestTime, (historyEntry.source_url || ""), (historyEntry.source_time_usec || ""), globalSrcTime, localSrcTime, (historyEntry.latest_visit_was_load_failure === undefined ? "" : historyEntry.latest_visit_was_load_failure), (historyEntry.latest_visit_was_http_get === undefined ? "" : historyEntry.latest_visit_was_http_get)]);
 		}
+		console.log(newCSVArray);
 		
 		csvTable += "</table>";
 		document.getElementById('CSVArea').innerHTML += csvTable;
+		
+		var csvString = arrayToCsv(newCSVArray);
+		var csvData = new Blob([csvString], {type: 'text/plain'});
+	  
+	    // If we are replacing a previously generated file we need to
+        // manually revoke the object URL to avoid memory leaks.
+        if (csvFile !== null) {
+          window.URL.revokeObjectURL(csvFile);
+        }
+
+        csvFile = window.URL.createObjectURL(csvData);
+
+        document.getElementById('downloadCSVLink').href = csvFile;
+        document.getElementById('downloadCSVButton').disabled = false;
 		
 		// Set buttons and areas initial visibility
 		viewCSV();
@@ -158,6 +176,17 @@
 	  }
 	}
 	
+	function arrayToCsv(data){
+	  return data.map(row =>
+		row
+		.map(String)  // convert every value to String
+		.map(v => v.replaceAll('"', '""'))  // escape double quotes
+		.map(v => `"${v}"`)  // quote it
+		.join(',')  // comma-separated
+	  ).join('\r\n');  // rows starting on new lines
+	}
+	
+	var csvFile = null;
   	document.getElementById('file-input').addEventListener('change', loadFile, false);
   </script>
 </body>
