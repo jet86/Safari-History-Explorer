@@ -5,6 +5,6 @@ This single page tool allows you to convert Safari history JSON files exported f
 
 See https://developer.apple.com/documentation/safariservices/importing-data-exported-from-safari#Understand-JSON-metadata for details of the JSON file structure.
 
-Future versions will hopefully include the ability to save a CSV export or a PDF report of the converted data.
+Future versions will include the ability to save a PDF report of the converted data.
 
-This page is entirely self contained. You can run it locally (even without an internet connection) by downloading the latest version of she.html from this repository.
+This page is entirely self contained. You can run it locally (even without an internet connection) by downloading the latest version of she.html from this repository. Note that when running it locally with no internet connection, some UI elements may look slightly different and the ability to download a PDF report may not work.
