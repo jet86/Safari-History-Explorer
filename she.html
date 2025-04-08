@@ -1,0 +1,165 @@
+<html>
+
+<head>
+  <link async
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/semantic-ui@2/dist/semantic.min.css">
+  <link rel="shortcut icon" href='./images/favicon.png'>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/semantic-ui-react/dist/umd/semantic-ui-react.min.js"></script>
+  <style>
+    body {
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+
+    .balance {
+      font-family: monospace;
+    }
+
+	button.ui.primary.button {
+      background-color: #1a56f0;
+    }
+    
+    pre {
+		white-space: pre-wrap;       /* Since CSS 2.1 */
+		white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+		white-space: -pre-wrap;      /* Opera 4-6 */
+		white-space: -o-pre-wrap;    /* Opera 7 */
+		word-wrap: break-word;       /* Internet Explorer 5.5+ */
+	}
+  </style>
+</head>
+<title>Safari History Explorer</title>
+
+<body onload="loadFile()">
+  <div class="ui stackable grid container" style='padding: 50px 0; min-width: 1400px;'>
+    <div class='row'>
+      <h1>&#x1F9ED; - Safari History Explorer</h1>
+    </div>
+    <div class='row'>
+      <div id="HeaderArea" class="address-area ui segment" style="display:block; width: 100%;">
+        <div id="rotateButton" class="balance">
+          <button id="viewJSONButton" class="ui primary button" onclick="viewJSON()" style="width: 200px" disabled>View JSON</button>
+          <button id="viewCSVButton" class="ui primary button" onclick="viewCSV()" style="width: 200px" disabled>View CSV</button>
+          <button id="downloadJSONButton" class="ui primary button" onclick="downloadCSV()" style="width: 200px" disabled>Download CSV</button>
+          <button id="downloadPDFButton" class="ui primary button" onclick="downloadPDF()" style="width: 200px" disabled>Download PDF</button>
+          <input type="file" id="file-input" />
+        </div>
+        <div id="MetadataHeader"></div>
+        <div id="BrowserName" class="balance"></div>
+        <div id="BrowserVersion" class="balance"></div>
+        <div id="DataType" class="balance"></div>
+        <div id="ExportTime" class="balance"></div>
+        <div id="SchemaVersion" class="balance"></div>
+      </div>
+    </div>
+    <div id="AboutArea" class="address-area ui segment" style="display:Block; width: 100%;">
+      <h3>About</h3>
+      v 0.8.0<br>
+      <br>
+      This single page tool allows you to convert Safari history JSON files exported from Safari on an iPad to a more human readable table or CSV format.<br>
+      <br>
+      <font color="red"><b>&#x26A0; WARNING:</b></font> This tool does not include robust error handling or sanitisation of data input. You should only select a file that is a valid Safari History JSON file from a known/trusted source. If an invalid file is selected the page likely won't load properly and could cause other issues.<br>
+      <br>
+      See <a href="https://developer.apple.com/documentation/safariservices/importing-data-exported-from-safari#Understand-JSON-metadata" target="_blank">https://developer.apple.com/documentation/safariservices/importing-data-exported-from-safari#Understand-JSON-metadata</a> for details of the JSON file structure.<br>
+      <br>
+      Future versions will hopefully include the ability to save a CSV export or a PDF report of the converted data.<br>
+      <br>
+      This page is entirely self contained. You can run it locally (even without an internet connection) by saving the html file via File > Save As > Format: Page Source (in Safari) or File > Save Page As > Format: Web Page, HTML Only (in Chrome), or by downloading the latest version from <a href="https://github.com/jet86/Safari-History-Explorer" target="_blank">https://github.com/jet86/Safari-History-Explorer</a><br>
+      <br>
+      &copy; 2025 jet86 | MIT License
+    </div>
+    <div id="JSONArea" class="address-area ui segment" style="display:none; width: 100%;"></div>
+    <div id="CSVArea" class="address-area ui segment" style="display:none; width: 100%;"></div>
+  </div>
+  <script type="text/javascript">
+  	function loadFile(e) {
+	  var file = e.target.files[0];
+	  if (!file) {
+		return;
+	  }
+	  var reader = new FileReader();
+	  reader.onload = function(e) {
+	  	document.getElementById('AboutArea').style.display = 'none';
+	  	document.getElementById('JSONArea').innerHTML = '<h3>Original JSON Content</h3><pre id="JSONView" width="100%"></pre>';
+		document.getElementById('CSVArea').innerHTML = '<h3>Converted CSV Data</h3>';
+		var jsonContents = e.target.result;
+		
+		// Display JSON content
+		displayJSON(jsonContents);
+		
+		// Display metadata
+		var history = JSON.parse(jsonContents);
+		document.getElementById('MetadataHeader').innerHTML = '<p><h2>Metadata</h2></p>';
+		document.getElementById('BrowserName').innerHTML = 'Browser: ' + history.metadata.browser_name;
+		document.getElementById('BrowserVersion').innerHTML = 'Browser Version: ' + history.metadata.browser_version;
+		document.getElementById('DataType').innerHTML = 'Data Type: ' + history.metadata.data_type;
+		document.getElementById('ExportTime').innerHTML = 'Export Time: ' + history.metadata.export_time_usec;
+		document.getElementById('SchemaVersion').innerHTML = 'Schema Version: ' + history.metadata.schema_version;
+		
+		// Generate and display table
+		var historyArray = history.history;
+		var csvTable = "";
+		csvTable += "<table border='1' class='balance' style='table-layout: fixed; width: 100%'><tr><th>Time</th><th>URL</th><th>Title</th><th width='5%'>Visits</th><th>Destination</th><th>Destination Time</th><th>Source</th><th>Source Time</th><th width='5%'>Last Visit Failed</th><th width='5%'>Last Visit HTTP GET</th></tr>";
+		
+		for(const historyEntry of historyArray)
+		{
+			var globalTime = new Date(historyEntry.time_usec / 1000).toUTCString();
+			var localTime = new Date(historyEntry.time_usec / 1000).toString();
+			
+			var globalDestTime = historyEntry.destination_time_usec ? new Date(historyEntry.destination_time_usec / 1000).toUTCString() : "";
+			var localDestTime = historyEntry.destination_time_usec ? new Date(historyEntry.destination_time_usec / 1000).toString() : "";
+			var globalSrcTime = historyEntry.source_time_usec ? new Date(historyEntry.source_time_usec / 1000).toUTCString() : "";
+			var localSrcTime = historyEntry.source_time_usec ? new Date(historyEntry.source_time_usec / 1000).toString() : "";
+			
+			csvTable += "<tr><td>" + historyEntry.time_usec + "<br><br>" + globalTime + "<br><br>" + localTime + "</td>";
+			csvTable += "<td style='word-wrap: break-word'>" + formatURL(historyEntry.url) + "</td><td>" + (historyEntry.title || "") + "</td><td>" + historyEntry.visit_count + "</td>";
+			csvTable += "<td style='word-wrap: break-word'>" + formatURL(historyEntry.destination_url) + "</td><td>" + (historyEntry.destination_time_usec || "") + "<br><br>" + globalDestTime + "<br><br>" + localDestTime + "</td><td style='word-wrap: break-word'>" + formatURL(historyEntry.source_url) + "</td><td>" + (historyEntry.source_time_usec || "") + "<br><br>" + globalSrcTime + "<br><br>" + localSrcTime + "</td>";
+			csvTable += "<td>" + (historyEntry.latest_visit_was_load_failure === undefined ? " " : historyEntry.latest_visit_was_load_failure) + "</td><td>" + (historyEntry.latest_visit_was_http_get === undefined ? " " : historyEntry.latest_visit_was_http_get) + "</td></tr>";
+			
+		}
+		
+		csvTable += "</table>";
+		document.getElementById('CSVArea').innerHTML += csvTable;
+		
+		// Set buttons and areas initial visibility
+		viewCSV();
+	  };
+	  reader.readAsText(file);
+	}
+	
+	function displayJSON(jsonContents) {
+	  var element = document.getElementById('JSONView');
+	  element.textContent = jsonContents;
+	}
+	
+	function viewJSON() {
+	  document.getElementById('viewJSONButton').disabled = true;
+	  document.getElementById('viewCSVButton').disabled = false;
+      document.getElementById('JSONArea').style.display = 'block';
+      document.getElementById('CSVArea').style.display = 'none';
+	}
+	
+	function viewCSV() {
+	  document.getElementById('viewJSONButton').disabled = false;
+	  document.getElementById('viewCSVButton').disabled = true;
+      document.getElementById('JSONArea').style.display = 'none';
+      document.getElementById('CSVArea').style.display = 'block';
+	}
+	
+	function formatURL(urlString) {
+	  if(urlString) {
+	  	var urlDisplay = urlString.length > 122 ? urlString.slice(0, 122) + "..." : urlString;
+	    return "<a href='" + urlString +"' target='_blank'>" + urlDisplay + "</a>";
+	  }
+	  else {
+	    return "";
+	  }
+	}
+	
+  	document.getElementById('file-input').addEventListener('change', loadFile, false);
+  </script>
+</body>
+
+</html>
