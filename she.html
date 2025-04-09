@@ -1,13 +1,6 @@
 <html>
-
 <head>
-  <link async
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/semantic-ui@2/dist/semantic.min.css">
-  <link rel="shortcut icon" href='./images/favicon.png'>
-  <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/semantic-ui-react/dist/umd/semantic-ui-react.min.js"></script>
+  <link async rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2/dist/semantic.min.css">
   <style>
     body {
       font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -19,6 +12,7 @@
 
 	button.ui.primary.button {
       background-color: #1a56f0;
+      color: white;
     }
     
     pre {
@@ -42,10 +36,11 @@
         <div id="rotateButton" class="balance">
           <button id="viewJSONButton" class="ui primary button" onclick="viewJSON()" style="width: 200px" disabled>View JSON</button>
           <button id="viewCSVButton" class="ui primary button" onclick="viewCSV()" style="width: 200px" disabled>View CSV</button>
-          <a download="safari_history_export.csv" id="downloadCSVLink"><button id="downloadCSVButton" class="ui primary button" style="width: 200px" disabled>Download CSV</button></a>
+          <a download="history_export_record.csv" id="downloadCSVLink"><button id="downloadCSVButton" class="ui primary button" style="width: 200px" disabled>Download CSV</button></a>
           <button id="downloadPDFButton" class="ui primary button" onclick="downloadPDF()" style="width: 200px" disabled>Download PDF</button>
           <input type="file" id="file-input" />
         </div>
+        <div id="LoadTime" class="balance"></div>
         <div id="MetadataHeader"></div>
         <div id="BrowserName" class="balance"></div>
         <div id="BrowserVersion" class="balance"></div>
@@ -56,7 +51,7 @@
     </div>
     <div id="AboutArea" class="address-area ui segment" style="display:Block; width: 100%;">
       <h3>About</h3>
-      v 0.9.0<br>
+      v 0.9.1<br>
       <br>
       This single page tool allows you to convert Safari history JSON files exported from Safari on an iPad to a more human readable table or CSV format.<br>
       <br>
@@ -91,6 +86,7 @@
 		
 		// Display metadata
 		var history = JSON.parse(jsonContents);
+		document.getElementById('LoadTime').innerHTML = '<br>File Loaded At: ' + new Date().toString();
 		document.getElementById('MetadataHeader').innerHTML = '<p><h2>Metadata</h2></p>';
 		document.getElementById('BrowserName').innerHTML = 'Browser: ' + history.metadata.browser_name;
 		document.getElementById('BrowserVersion').innerHTML = 'Browser Version: ' + history.metadata.browser_version;
@@ -101,7 +97,7 @@
 		// Generate and display table
 		var historyArray = history.history;
 		var csvTable = "";
-		csvTable += "<table border='1' class='balance' style='table-layout: fixed; width: 100%'><tr><th>Time</th><th>URL</th><th>Title</th><th width='5%'>Visits</th><th>Destination</th><th>Destination Time</th><th>Source</th><th>Source Time</th><th width='5%'>Last Visit Failed</th><th width='5%'>Last Visit HTTP GET</th></tr>";
+		csvTable += "<table border='1' cellspacing='0' class='balance' style='table-layout: fixed; width: 100%'><tr><th>Time</th><th>URL</th><th>Title</th><th width='5%'>Visits</th><th>Destination</th><th>Destination Time</th><th>Source</th><th>Source Time</th><th width='5%'>Last Visit Failed</th><th width='5%'>Last Visit HTTP GET</th></tr>";
 		
 		let newCSVArray = [["Time (Raw)", "Time (UTC)", "Time (Local)", "URL", "Title", "Visits", "Destination", "Destination Time (Raw)", "Destination Time (UTC)", "Destination Time (Local)", "Source", "Source Time (Raw)", "Source Time (UTC)", "Source Time (Local)", "Last Visit Failed", "Last Visit HTTP GET"]];
 		
@@ -116,9 +112,9 @@
 			var localSrcTime = historyEntry.source_time_usec ? new Date(historyEntry.source_time_usec / 1000).toString() : "";
 			
 			csvTable += "<tr><td>" + historyEntry.time_usec + "<br><br>" + globalTime + "<br><br>" + localTime + "</td>";
-			csvTable += "<td style='word-wrap: break-word'>" + formatURL(historyEntry.url) + "</td><td>" + (historyEntry.title || "") + "</td><td>" + historyEntry.visit_count + "</td>";
+			csvTable += "<td style='word-wrap: break-word'>" + formatURL(historyEntry.url) + "</td><td>" + (historyEntry.title || "") + "</td><td align='center'>" + historyEntry.visit_count + "</td>";
 			csvTable += "<td style='word-wrap: break-word'>" + formatURL(historyEntry.destination_url) + "</td><td>" + (historyEntry.destination_time_usec || "") + "<br><br>" + globalDestTime + "<br><br>" + localDestTime + "</td><td style='word-wrap: break-word'>" + formatURL(historyEntry.source_url) + "</td><td>" + (historyEntry.source_time_usec || "") + "<br><br>" + globalSrcTime + "<br><br>" + localSrcTime + "</td>";
-			csvTable += "<td>" + (historyEntry.latest_visit_was_load_failure === undefined ? "" : historyEntry.latest_visit_was_load_failure) + "</td><td>" + (historyEntry.latest_visit_was_http_get === undefined ? "" : historyEntry.latest_visit_was_http_get) + "</td></tr>";
+			csvTable += "<td align='center'>" + (historyEntry.latest_visit_was_load_failure === undefined ? "" : historyEntry.latest_visit_was_load_failure) + "</td><td align='center'>" + (historyEntry.latest_visit_was_http_get === undefined ? "" : historyEntry.latest_visit_was_http_get) + "</td></tr>";
 			
 			newCSVArray.push([historyEntry.time_usec, globalTime, localTime, historyEntry.url, (historyEntry.title || ""), historyEntry.visit_count, (historyEntry.destination_url || ""), (historyEntry.destination_time_usec || ""), globalDestTime, localDestTime, (historyEntry.source_url || ""), (historyEntry.source_time_usec || ""), globalSrcTime, localSrcTime, (historyEntry.latest_visit_was_load_failure === undefined ? "" : historyEntry.latest_visit_was_load_failure), (historyEntry.latest_visit_was_http_get === undefined ? "" : historyEntry.latest_visit_was_http_get)]);
 		}
@@ -139,6 +135,8 @@
         csvFile = window.URL.createObjectURL(csvData);
 
         document.getElementById('downloadCSVLink').href = csvFile;
+        var timeNow = new Date();
+        document.getElementById('downloadCSVLink').download = "history_export_record_" + timestampFormat(timeNow) + ".csv";
         document.getElementById('downloadCSVButton').disabled = false;
 		
 		// Set buttons and areas initial visibility
@@ -186,9 +184,12 @@
 	  ).join('\r\n');  // rows starting on new lines
 	}
 	
+	function timestampFormat(timestamp) {
+		return timestamp.getFullYear() + "-" + (timestamp.getMonth()+1).toString().padStart(2, '0') + "-" + timestamp.getDate().toString().padStart(2, '0') + "_" + timestamp.getHours().toString().padStart(2, '0') + "-" + timestamp.getMinutes().toString().padStart(2, '0') + "-" + timestamp.getSeconds().toString().padStart(2, '0');
+	}
+	
 	var csvFile = null;
   	document.getElementById('file-input').addEventListener('change', loadFile, false);
   </script>
 </body>
-
 </html>
