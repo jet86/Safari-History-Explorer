@@ -1,0 +1,323 @@
+{
+  "metadata" : {
+    "browser_name" : "Safari",
+    "browser_version" : "18.4",
+    "data_type" : "history",
+    "export_time_usec" : 1744167620461468,
+    "schema_version" : 1
+  },
+  "history" : [
+    {
+      "url" : "http://example.org/",
+      "time_usec" : 1744166970164979,
+      "visit_count" : 1,
+      "destination_url" : "https://example.org/",
+      "destination_time_usec" : 1744166970165975
+    },
+    {
+      "url" : "https://example.org/",
+      "time_usec" : 1744166970165975,
+      "visit_count" : 1,
+      "title" : "Example Domain",
+      "source_url" : "http://example.org/",
+      "source_time_usec" : 1744166970164979
+    },
+    {
+      "url" : "https://www.iana.org/help/example-domains",
+      "time_usec" : 1744166977146288,
+      "visit_count" : 1,
+      "title" : "Example Domains"
+    },
+    {
+      "url" : "https://www.rfc-editor.org/rfc/rfc2606.html#section-3",
+      "time_usec" : 1744166998946789,
+      "visit_count" : 1,
+      "title" : "RFC 2606: Reserved Top Level DNS Names"
+    },
+    {
+      "url" : "https://www.rfc-editor.org/rfc/pdfrfc/rfc2606.txt.pdf",
+      "time_usec" : 1744167003463733,
+      "visit_count" : 1
+    },
+    {
+      "url" : "https://www.rfc-editor.org/rfc/rfc2606.txt",
+      "time_usec" : 1744167008268509,
+      "visit_count" : 1
+    },
+    {
+      "url" : "https://www.rfc-editor.org/rfc/rfc2606.html",
+      "time_usec" : 1744167011734395,
+      "visit_count" : 2,
+      "title" : "RFC 2606: Reserved Top Level DNS Names"
+    },
+    {
+      "url" : "https://www.rfc-editor.org/rfc/rfc6761.html",
+      "time_usec" : 1744167016903698,
+      "visit_count" : 1,
+      "title" : "RFC 6761: Special-Use Domain Names"
+    },
+    {
+      "url" : "https://www.iana.org/domains/reserved",
+      "time_usec" : 1744167022594339,
+      "visit_count" : 1,
+      "title" : "IANA-managed Reserved Domains"
+    },
+    {
+      "url" : "http://example.net/",
+      "time_usec" : 1744167037483231,
+      "visit_count" : 1,
+      "destination_url" : "https://example.net/",
+      "destination_time_usec" : 1744167037487004
+    },
+    {
+      "url" : "http://example.com/",
+      "time_usec" : 1744167044606598,
+      "visit_count" : 1,
+      "destination_url" : "https://example.com/",
+      "destination_time_usec" : 1744167044608764
+    },
+    {
+      "url" : "https://example.com/",
+      "time_usec" : 1744167044608764,
+      "visit_count" : 1,
+      "title" : "Example Domain",
+      "source_url" : "http://example.com/",
+      "source_time_usec" : 1744167044606598
+    },
+    {
+      "url" : "http://404.example.org/",
+      "time_usec" : 1744167055139718,
+      "visit_count" : 1,
+      "title" : "Can’t Open Page",
+      "latest_visit_was_load_failure" : true
+    },
+    {
+      "url" : "https://example.net/",
+      "time_usec" : 1744167063634169,
+      "visit_count" : 2,
+      "title" : "Example Domain"
+    },
+    {
+      "url" : "https://example.net/404",
+      "time_usec" : 1744167071218005,
+      "visit_count" : 1,
+      "title" : "Example Domain",
+      "latest_visit_was_load_failure" : true
+    },
+    {
+      "url" : "http://github.com/jet86",
+      "time_usec" : 1744167091569090,
+      "visit_count" : 1,
+      "destination_url" : "https://github.com/jet86",
+      "destination_time_usec" : 1744167091569862
+    },
+    {
+      "url" : "https://github.com/jet86",
+      "time_usec" : 1744167092158262,
+      "visit_count" : 3,
+      "title" : "jet86 · GitHub"
+    },
+    {
+      "url" : "https://github.com/jet86/Safari-History-Explorer",
+      "time_usec" : 1744167105745682,
+      "visit_count" : 3,
+      "title" : "GitHub - jet86/Safari-History-Explorer: This single page tool allows you to convert Safari history JSON files exported from Safari on an iPad to a more human readable table or CSV format."
+    },
+    {
+      "url" : "https://github.com/jet86/Safari-History-Explorer?tab=readme-ov-file",
+      "time_usec" : 1744167117139183,
+      "visit_count" : 1,
+      "title" : "GitHub - jet86/Safari-History-Explorer: This single page tool allows you to convert Safari history JSON files exported from Safari on an iPad to a more human readable table or CSV format."
+    },
+    {
+      "url" : "https://developer.apple.com/documentation/safariservices",
+      "time_usec" : 1744167136510257,
+      "visit_count" : 1,
+      "title" : "Safari Services | Apple Developer Documentation"
+    },
+    {
+      "url" : "https://developer.apple.com/documentation/safariservices/importing-data-exported-from-safari#Understand-JSON-metadata",
+      "time_usec" : 1744167139204068,
+      "visit_count" : 3,
+      "title" : "Importing data exported from Safari | Apple Developer Documentation"
+    },
+    {
+      "url" : "https://github.com/jet86/Safari-History-Explorer/commits/main/",
+      "time_usec" : 1744167145699861,
+      "visit_count" : 4,
+      "title" : "Commits · jet86/Safari-History-Explorer · GitHub"
+    },
+    {
+      "url" : "https://github.com/jet86/Safari-History-Explorer/pulse",
+      "time_usec" : 1744167155210902,
+      "visit_count" : 1,
+      "title" : "Pulse · jet86/Safari-History-Explorer · GitHub"
+    },
+    {
+      "url" : "https://github.com/jet86/Safari-History-Explorer/graphs/commit-activity",
+      "time_usec" : 1744167165901118,
+      "visit_count" : 2,
+      "title" : "Commit Activity · jet86/Safari-History-Explorer · GitHub"
+    },
+    {
+      "url" : "https://github.com/jet86/Safari-History-Explorer/graphs/code-frequency",
+      "time_usec" : 1744167204612002,
+      "visit_count" : 4,
+      "title" : "Code frequency · jet86/Safari-History-Explorer · GitHub"
+    },
+    {
+      "url" : "https://www.google.com/search?q=safari+history+json&ie=UTF-8&oe=UTF-8&hl=en-au&client=safari",
+      "time_usec" : 1744167314858280,
+      "visit_count" : 1,
+      "title" : "Google Search",
+      "destination_url" : "https://www.google.com/search?q=safari+history+json&ie=UTF-8&oe=UTF-8&hl=en-au&client=safari&sei=kuH1Z9m_K4ui2roPp9qeuAI",
+      "destination_time_usec" : 1744167315372026
+    },
+    {
+      "url" : "https://www.google.com/search?q=safari+history+json&ie=UTF-8&oe=UTF-8&hl=en-au&client=safari&sei=kuH1Z9m_K4ui2roPp9qeuAI",
+      "time_usec" : 1744167316205548,
+      "visit_count" : 3,
+      "title" : "safari history json - Google Search"
+    },
+    {
+      "url" : "https://medium.com/@jsaxena017/web-browser-forensics-part-3-safari-browser-994d3ba0330e",
+      "time_usec" : 1744167329010982,
+      "visit_count" : 1,
+      "title" : "Web Browser Forensics Part 3: Safari Browser | by JSaxena | Medium"
+    },
+    {
+      "url" : "https://apple.gadgethacks.com/how-to/export-import-your-safari-browsing-data-between-browsers-iphone-ipad-and-mac-0385658/",
+      "time_usec" : 1744167357415072,
+      "visit_count" : 1,
+      "title" : "How to Export or Import Your Safari Browsing Data Between Browsers on iPhone, iPad, and Mac << Apple :: Gadget Hacks"
+    },
+    {
+      "url" : "https://support.apple.com/en-asia/guide/safari/ibrw1015/mac",
+      "time_usec" : 1744167400170682,
+      "visit_count" : 1,
+      "title" : "Import bookmarks and history directly from another browser in Safari on Mac - Apple Support"
+    },
+    {
+      "url" : "https://developer.apple.com/documentation/safariservices/importing-data-exported-from-safari#:~:text=The%20top%2Dlevel%20object%20in%20the%20history%20JSON%20file%20contains,URL%20of%20the%20history%20item.",
+      "time_usec" : 1744167407262363,
+      "visit_count" : 1,
+      "destination_url" : "https://developer.apple.com/documentation/safariservices/importing-data-exported-from-safari",
+      "destination_time_usec" : 1744167407262639
+    },
+    {
+      "url" : "https://developer.apple.com/documentation/safariservices/importing-data-exported-from-safari",
+      "time_usec" : 1744167407462990,
+      "visit_count" : 2,
+      "title" : "Importing data exported from Safari | Apple Developer Documentation"
+    },
+    {
+      "url" : "http://google.com/",
+      "time_usec" : 1744167419619073,
+      "visit_count" : 1,
+      "destination_url" : "https://www.google.com/",
+      "destination_time_usec" : 1744167419621573
+    },
+    {
+      "url" : "https://www.google.com/",
+      "time_usec" : 1744167420034343,
+      "visit_count" : 2,
+      "title" : "Google"
+    },
+    {
+      "url" : "https://www.google.com/search?q=safari+history+explorer&sca_esv=7eb4e2a0b2f23aa4&source=hp&ei=--H1Z7nOAsrOwPAPkp7IsQw&iflsig=ACkRmUkAAAAAZ_XwCxD8695yeAqr3rwp36lZm_cphzu1&ved=0ahUKEwj5t8P7-cmMAxVKJxAIHRIPMsYQ4dUDCBA&uact=5&oq=safari+history+explorer&gs_lp=Egdnd3Mtd2l6IhdzYWZhcmkgaGlzdG9yeSBleHBsb3JlcjIFECEYoAEyBRAhGKABSLQ1UOkHWLYvcAF4AJABAJgB7AGgAeAdqgEGMC4yMS4yuAEDyAEA-AEBmAIYoALeH6gCCsICChAAGAMY6gIYjwHCAgsQABiABBixAxiDAcICDhAAGIAEGLEDGIMBGIoFwgIREC4YgAQYsQMY0QMYgwEYxwHCAhQQLhiABBixAxjRAxiDARjHARiKBcICCBAuGIAEGLEDwgILEC4YgAQYsQMYgwHCAggQABiABBixA8ICBRAuGIAEwgIOEC4YgAQYsQMYgwEYigXCAhQQLhiABBixAxiDARjHARiOBRivAcICCxAuGIAEGMcBGK8BwgIFEAAYgATCAgsQABiABBixAxiKBcICCxAAGIAEGLEDGMkDwgILEAAYgAQYkgMYigXCAhEQLhiABBjHARiYBRiZBRivAcICBhAAGBYYHsICCxAAGIAEGIYDGIoFwgIHECEYoAEYCsICCBAAGBYYChgewgIIEAAYgAQYogTCAgUQABjvBZgDEfEFF6tsphhsn1aSBwYxLjIwLjOgB5u2AbIHBjAuMjAuM7gHzR8&sclient=gws-wiz",
+      "time_usec" : 1744167443488355,
+      "visit_count" : 3,
+      "title" : "safari history explorer - Google Search"
+    },
+    {
+      "url" : "https://www.google.com/search?q=github+safari+history+explorer&sca_esv=7eb4e2a0b2f23aa4&ei=EuL1Z4WNNfjf2roP3rq5gQ4&ved=0ahUKEwiF3vGG-smMAxX4r1YBHV5dLuAQ4dUDCBA&uact=5&oq=github+safari+history+explorer&gs_lp=Egxnd3Mtd2l6LXNlcnAiHmdpdGh1YiBzYWZhcmkgaGlzdG9yeSBleHBsb3JlcjIIEAAYgAQYogQyBRAAGO8FMggQABiABBiiBDIIEAAYgAQYogRIwh9QuwlY4RlwAXgBkAEAmAHCAaABjgmqAQMwLje4AQPIAQD4AQGYAgigAu4JwgIKEAAYsAMY1gQYR8ICChAhGKABGMMEGAqYAwCIBgGQBgOSBwUxLjYuMaAHzBOyBwUwLjYuMbgHvwk&sclient=gws-wiz-serp",
+      "time_usec" : 1744167453310608,
+      "visit_count" : 3,
+      "title" : "github safari history explorer - Google Search"
+    },
+    {
+      "url" : "https://www.google.com/search?q=test.invalid&ie=UTF-8&oe=UTF-8&hl=en-au&client=safari",
+      "time_usec" : 1744167468042506,
+      "visit_count" : 3,
+      "title" : "test.invalid - Google Search"
+    },
+    {
+      "url" : "http://test.invalid/",
+      "time_usec" : 1744167486209606,
+      "visit_count" : 1,
+      "title" : "Can’t Open Page",
+      "latest_visit_was_load_failure" : true
+    },
+    {
+      "url" : "http://404.google.com/",
+      "time_usec" : 1744167498774142,
+      "visit_count" : 1,
+      "title" : "Can’t Open Page",
+      "latest_visit_was_load_failure" : true
+    },
+    {
+      "url" : "http://google.com/404",
+      "time_usec" : 1744167509020904,
+      "visit_count" : 1,
+      "latest_visit_was_load_failure" : true,
+      "destination_url" : "https://google.com/404",
+      "destination_time_usec" : 1744167509021644
+    },
+    {
+      "url" : "https://google.com/404",
+      "time_usec" : 1744167509021644,
+      "visit_count" : 1,
+      "title" : "Error 404 (Not Found)!!1",
+      "source_url" : "http://google.com/404",
+      "source_time_usec" : 1744167509020904
+    },
+    {
+      "url" : "https://www.google.com/search?q=rfc+2606&ie=UTF-8&oe=UTF-8&hl=en-au&client=safari",
+      "time_usec" : 1744167520233498,
+      "visit_count" : 3,
+      "title" : "rfc 2606 - Google Search"
+    },
+    {
+      "url" : "https://datatracker.ietf.org/doc/html/rfc2606",
+      "time_usec" : 1744167524781811,
+      "visit_count" : 1,
+      "title" : "RFC 2606 - Reserved Top Level DNS Names"
+    },
+    {
+      "url" : "https://datatracker.ietf.org/doc/html/rfc2606#section-3",
+      "time_usec" : 1744167531029490,
+      "visit_count" : 1,
+      "title" : "RFC 2606 - Reserved Top Level DNS Names"
+    },
+    {
+      "url" : "https://datatracker.ietf.org/doc/html/rfc6761",
+      "time_usec" : 1744167536542595,
+      "visit_count" : 1,
+      "title" : "RFC 6761 - Special-Use Domain Names"
+    },
+    {
+      "url" : "https://www.google.com/search?q=iso216&ie=UTF-8&oe=UTF-8&hl=en-au&client=safari",
+      "time_usec" : 1744167553714878,
+      "visit_count" : 3,
+      "title" : "iso216 - Google Search"
+    },
+    {
+      "url" : "https://www.google.com/search?client=safari&sca_esv=7eb4e2a0b2f23aa4&hl=en-au&q=iso+216&spell=1&sa=X&ved=2ahUKEwjtwLS7-smMAxVXsVYBHZzQGrcQBSgAegQICRAB&biw=1080&bih=740&dpr=2",
+      "time_usec" : 1744167555896285,
+      "visit_count" : 3,
+      "title" : "iso 216 - Google Search"
+    },
+    {
+      "url" : "https://en.wikipedia.org/wiki/ISO_216",
+      "time_usec" : 1744167557961779,
+      "visit_count" : 1,
+      "title" : "ISO 216 - Wikipedia"
+    },
+    {
+      "url" : "https://en.wikipedia.org/wiki/Square_root_of_2",
+      "time_usec" : 1744167574865676,
+      "visit_count" : 1,
+      "title" : "Square root of 2 - Wikipedia"
+    }
+  ]
+}
