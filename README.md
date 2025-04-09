@@ -7,4 +7,4 @@ See https://developer.apple.com/documentation/safariservices/importing-data-expo
 
 Future versions will include the ability to save a PDF report of the converted data.
 
-This page is entirely self contained. You can run it locally (even without an internet connection) by downloading the latest version of she.html from this repository. Note that when running it locally with no internet connection, some UI elements may look slightly different and the ability to download a PDF report may not work.
+This page is mostly self contained. You can run it locally (even without an internet connection) by downloading the latest version of she.html from this repository. Note that when running it locally with no internet connection, some UI elements may look slightly different and the ability to download a PDF report may not work.
